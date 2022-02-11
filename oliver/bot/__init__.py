@@ -9,10 +9,10 @@ from . import calendar
 @bot.route('/', methods=['POST'])
 def on_event():
     event = flask.request.get_json()
-    if event['type'] == 'ADDED_TO_SPACE' and not event['space']['singleUserBotDm']:
-        text = "added to chat!"
-    elif event['type'] == 'MESSAGE':
-        text = "hiya!"
+    sender = event['message']['sender']['displayName']
+    response = ""
+    if event['type'] == 'MESSAGE':
+        response = f"hey, {sender}!"
     else:
         return
-    return flask.jsonify({'text': text})
+    return flask.jsonify({'text': response})
